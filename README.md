@@ -8,7 +8,8 @@ The Arduino reads IR signals using an IR receiver and switches relays based on r
 
 ## 🔧 Hardware Used
 
-- Arduino Nano / Uno
+- Arduino UNO (tested)
+- Arduino Nano (also compatible – same pin numbers)
 - IR Receiver Module
 - IR Remote
 - 4 Channel Relay Module (Active LOW)
@@ -26,14 +27,21 @@ This project uses the **IRremote** library.
 1. Open Arduino IDE  
 2. Tools → Manage Libraries  
 3. Search: IRremote  
-4. Install: IRremote by Armin Joachimsmeyer  
+4. Install: **IRremote by Armin Joachimsmeyer**  
 5. Version tested: **v4.5+**
+
+---
 
 ### Option B — Install from ZIP
 
 IRremote.zip is included in this repository.
 
-Sketch → Include Library → Add .ZIP Library → select IRremote.zip
+Steps:
+
+1. Open Arduino IDE  
+2. Sketch → Include Library → Add .ZIP Library  
+3. Select `IRremote.zip`  
+4. Restart Arduino IDE
 
 ---
 
@@ -42,10 +50,10 @@ Sketch → Include Library → Add .ZIP Library → select IRremote.zip
 | Module | Arduino Pin |
 |--------|-------------|
 | IR Receiver OUT | D3 |
-| Relay 1 | D4 |
-| Relay 2 | D5 |
-| Relay 3 | D6 |
-| Relay 4 | D7 |
+| Relay IN1 | D4 |
+| Relay IN2 | D5 |
+| Relay IN3 | D6 |
+| Relay IN4 | D7 |
 
 Relay VCC → 5V  
 Relay GND → GND
@@ -69,9 +77,70 @@ Relay GND → GND
 
 ---
 
-## 📷 Circuit Diagram
+## ▶️ How to Run
 
-See circuit image in this repository.
+1. Install IRremote library  
+2. Connect hardware as per wiring below  
+3. Upload the code to Arduino  
+4. Open Serial Monitor (9600 baud)  
+5. Press remote buttons to control relays
+
+---
+
+## 🔌 Circuit Diagram (Text Wiring – Arduino UNO + IR Receiver + 4-Channel Relay)
+
+This project uses an Arduino UNO, IR receiver module, and a 4-channel relay module (active LOW).
+
+---
+
+### 🎯 IR Receiver Connections
+
+| IR Receiver Pin | Arduino UNO Pin |
+|-----------------|-----------------|
+| OUT / SIGNAL    | D3              |
+| VCC             | 5V              |
+| GND             | GND             |
+
+---
+
+### 🎯 Relay Module Connections (Control Side)
+
+| Relay Module Pin | Arduino UNO Pin |
+|------------------|-----------------|
+| IN1              | D4              |
+| IN2              | D5              |
+| IN3              | D6              |
+| IN4              | D7              |
+| VCC              | 5V              |
+| GND              | GND             |
+
+> ⚠️ Relay module is **Active LOW**  
+> LOW = Relay ON, HIGH = Relay OFF (code is written accordingly)
+
+---
+
+### ⚡ AC Load Wiring (Per Relay Channel)
+
+Each relay channel has three terminals: **COM – NO – NC**
+
+- AC Phase (Live) → COM  
+- NO → Appliance Phase Input  
+- AC Neutral → Direct to Appliance Neutral  
+
+**Working Logic:**
+
+- Relay ON → COM–NO connected → Appliance ON  
+- Relay OFF → Open → Appliance OFF
+
+---
+
+### 🧠 Pin Map (Matches Arduino Code)
+
+---
+
+## 📷 Circuit Diagram Image
+
+Circuit diagram image will be added soon. Text wiring diagram is provided above.
 
 ---
 
@@ -81,12 +150,13 @@ https://www.youtube.com/shorts/JcTsnxFFeXo
 
 ---
 
-## ▶️ How to Run
+## ⚠️ Safety Notes
 
-1. Install IRremote library  
-2. Upload code to Arduino  
-3. Open Serial Monitor (9600 baud)  
-4. Press remote buttons to control relays
+- Turn OFF mains power before AC wiring  
+- Do not touch relay terminals when powered  
+- Use proper insulation  
+- First test with low-voltage load if possible  
+- Ensure Arduino, relay module, and IR receiver share **common GND**
 
 ---
 
